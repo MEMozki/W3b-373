@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>W3B-373</title>
+    <title>w3b-373</title>
     <style>
         body {
             margin: 0;
@@ -69,7 +69,7 @@
 
     <!-- Поле ввода с кнопкой-лупой -->
     <div class="input-container">
-        <input type="text" id="domainInput" placeholder="Domen..." />
+        <input type="text" id="domainInput" placeholder="Enter domain or search query..." />
         <button onclick="redirect()">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <path d="M10 2a8 8 0 106.32 13.9l4.59 4.59 1.41-1.41-4.59-4.59A8 8 0 0010 2zm0 2a6 6 0 11-4.24 10.24A6 6 0 0110 4z" />
@@ -81,23 +81,41 @@
     <p class="ip" id="yourIp">Your IP: Detecting...</p>
 
     <script>
-        // Список доменов и их IP
+        // Список кастомных доменов и их IP
         const domainMap = {
             "ant1sanit1.1tz": "TrashPomoyka.t.me"
         };
 
         function redirect() {
-            const domain = document.getElementById('domainInput').value.trim();
+            const input = document.getElementById('domainInput').value.trim();
+            const domain = input.toLowerCase(); // Приводим к нижнему регистру для проверки кастомных доменов
             const ipElement = document.getElementById('yourIp');
 
             if (domainMap[domain]) {
-                ipElement.textContent = `Redirecting...`;
+                // Если домен найден в кастомной базе
+                ipElement.textContent = `Redirecting to: ${domainMap[domain]}`;
                 setTimeout(() => {
                     window.location.href = `http://${domainMap[domain]}`;
-                }, 0);
+                }, 100);
+            } else if (isValidDomain(input)) {
+                // Если это валидный обычный домен
+                ipElement.textContent = `Redirecting...`;
+                setTimeout(() => {
+                    window.location.href = `http://${input}`;
+                }, 100);
             } else {
-                ipElement.textContent = "Domain not found!";
+                // Если это произвольный текстовый запрос — ищем в DuckDuckGo
+                ipElement.textContent = "Searching...";
+                setTimeout(() => {
+                    window.location.href = `https://duckduckgo.com/?q=${encodeURIComponent(input)}`;
+                }, 100);
             }
+        }
+
+        // Проверяем, является ли домен валидным
+        function isValidDomain(domain) {
+            const domainPattern = /^(?!:\/\/)([a-zA-Z0-9-_]+\.)+[a-zA-Z]{2,}$/;
+            return domainPattern.test(domain);
         }
 
         // Получение IP пользователя
