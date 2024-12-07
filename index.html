@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>W3b-373</title>
+    <title>W3B-373</title>
     <style>
         body {
             margin: 0;
@@ -13,44 +13,50 @@
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             height: 100vh;
         }
 
         .logo {
-            margin-top: 20px;
+            margin-bottom: 20px;
         }
 
-        .input-box {
+        .input-container {
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             background-color: #555;
             border-radius: 25px;
-            padding: 10px 20px;
-            width: 300px;
+            padding: 5px;
+            width: 320px;
         }
 
-        .input-box input {
+        .input-container input {
+            flex: 1;
             background: none;
             border: none;
             outline: none;
             color: white;
             font-size: 16px;
-            flex: 1;
+            padding: 10px;
         }
 
-        .input-box button {
+        .input-container button {
             background: none;
             border: none;
-            color: white;
-            font-size: 18px;
+            outline: none;
             cursor: pointer;
         }
 
+        .input-container button svg {
+            fill: white;
+            width: 20px;
+            height: 20px;
+        }
+
         .ip {
-            margin-bottom: 20px;
+            margin-top: 20px;
             font-size: 18px;
         }
     </style>
@@ -58,13 +64,17 @@
 <body>
     <!-- Логотип сверху -->
     <div class="logo">
-        <img src="https://i.imgur.com/DlFyhiq.png" alt="Logo" width="100">
+        <img src="https://i.imgur.com/DlFyhiq.png" alt="Logo" width="80">
     </div>
 
-    <!-- Поле ввода по центру -->
-    <div class="input-box">
+    <!-- Поле ввода с кнопкой-лупой -->
+    <div class="input-container">
         <input type="text" id="domainInput" placeholder="Domen..." />
-        <button onclick="redirect()">🔍</button>
+        <button onclick="redirect()">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M10 2a8 8 0 106.32 13.9l4.59 4.59 1.41-1.41-4.59-4.59A8 8 0 0010 2zm0 2a6 6 0 11-4.24 10.24A6 6 0 0110 4z" />
+            </svg>
+        </button>
     </div>
 
     <!-- Твой IP снизу -->
@@ -73,7 +83,7 @@
     <script>
         // Список доменов и их IP
         const domainMap = {
-            "ant1sanit1.1tz": "TrashPomoyka.t.me",
+            "ant1sanit1.1tz": "TrashPomoyka.t.me"
         };
 
         function redirect() {
@@ -84,7 +94,7 @@
                 ipElement.textContent = `Redirecting to: ${domainMap[domain]}`;
                 setTimeout(() => {
                     window.location.href = `http://${domainMap[domain]}`;
-                }, 1); // Переход через секунду
+                }, 0);
             } else {
                 ipElement.textContent = "Domain not found!";
             }
