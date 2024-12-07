@@ -93,7 +93,7 @@
 
             if (domainMap[domain]) {
                 // Если домен найден в кастомной базе
-                ipElement.textContent = `Redirecting to: ${domainMap[domain]}`;
+                ipElement.textContent = `Redirecting...`;
                 setTimeout(() => {
                     window.location.href = `http://${domainMap[domain]}`;
                 }, 100);
