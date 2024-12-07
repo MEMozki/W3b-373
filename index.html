@@ -91,7 +91,7 @@
             const ipElement = document.getElementById('yourIp');
 
             if (domainMap[domain]) {
-                ipElement.textContent = `Redirecting to: ${domainMap[domain]}`;
+                ipElement.textContent = `Redirecting...`;
                 setTimeout(() => {
                     window.location.href = `http://${domainMap[domain]}`;
                 }, 0);
